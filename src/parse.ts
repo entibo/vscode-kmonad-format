@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import * as ohm from "ohm-js"
 
-export const grammar = ohm.grammar(`
+export const grammar = ohm.grammar(String.raw`
 Kmonad {
   KmonadConfig = TopLevelSexpr*
 
@@ -14,9 +14,9 @@ Kmonad {
     | word
   
   TapMacro = "#" Sexpr
-  escaped = "\\\\" (~space any)*
+  escaped = "\\" (~space any)*
   word = (~(space | ")") any)+
-  string = "\\"" (~"\\"" any)* "\\""
+  string = "\"" (~"\"" any)* "\""
 
   space := whitespace | newline | comment
 
@@ -25,14 +25,14 @@ Kmonad {
   multiLineComment = "#|" (~"|#" any)* "|#"
   singleLineComment = ";;" (~newline any)*
 
-  whitespace = "\\t"
-  | "\\x0B"    -- verticalTab
-  | "\\x0C"    -- formFeed
+  whitespace = "\t"
+  | "\x0B"    -- verticalTab
+  | "\x0C"    -- formFeed
   | " "
-  | "\\u00A0"  -- noBreakSpace
-  | "\\uFEFF"  -- byteOrderMark
+  | "\u00A0"  -- noBreakSpace
+  | "\uFEFF"  -- byteOrderMark
 
-  newline = "\\n" | "\\r" | "\\u2028" | "\\u2029" | "\\r\\n"
+  newline = "\n" | "\r" | "\u2028" | "\u2029" | "\r\n"
 }
 `)
 

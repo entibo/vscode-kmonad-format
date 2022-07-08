@@ -2,27 +2,29 @@ import * as vscode from "vscode"
 
 let quickPickActive: Promise<void> | undefined
 
-// Taken from the Calva extension
+// Adapted from the Calva extension
 export function quickPick(
-  itemsToPick: string[],
+  itemsToPick: (string | vscode.QuickPickItem)[],
   active: string[],
   selected: string[],
   options: vscode.QuickPickOptions & { canPickMany: true }
 ): Promise<string[]>
 export function quickPick(
-  itemsToPick: string[],
+  itemsToPick: (string | vscode.QuickPickItem)[],
   active: string[],
   selected: string[],
   options: vscode.QuickPickOptions
 ): Promise<string>
 
 export async function quickPick(
-  itemsToPick: string[],
+  itemsToPick: (string | vscode.QuickPickItem)[],
   active: string[],
   selected: string[],
   options: vscode.QuickPickOptions
 ): Promise<string[] | string | undefined> {
-  const items = itemsToPick.map((x) => ({ label: x }))
+  const items = itemsToPick.map((x) =>
+    typeof x === "string" ? { label: x } : x
+  )
 
   const qp = vscode.window.createQuickPick()
   quickPickActive = new Promise<void>((resolve) =>

@@ -1,6 +1,6 @@
 import * as assert from "assert"
 import * as vscode from "vscode"
-import * as myExtension from "../../extension"
+import * as myExtension from "../../main"
 
 async function testConfig(cfg: { original: string; formatted: string }) {
   const doc = await vscode.workspace.openTextDocument({
